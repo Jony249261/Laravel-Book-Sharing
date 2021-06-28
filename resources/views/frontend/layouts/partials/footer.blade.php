@@ -51,7 +51,7 @@
     </div>
 
     <p class="text-center">
-      &copy; 2019 all rights reserved
+      &copy; 2019 all rights reserved <a href="http://jony.microwebit.com/">Jony Islam</a>
     </p>
   </div>
 </div>

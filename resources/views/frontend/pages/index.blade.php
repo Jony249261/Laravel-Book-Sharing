@@ -17,7 +17,7 @@
         <div class="carousel-caption d-none d-md-block">
           <h3>Welcome to your Book Sharing Platform</h3>
           <p>
-            <a href="register.html" class="btn btn-primary slider-link">
+            <a href="register.html" class="btn btn-danger slider-link">
               Get Start Now
             </a>
           </p>
@@ -28,7 +28,7 @@
         <div class="carousel-caption d-none d-md-block">
           <h3>Welcome to your Book Sharing Platform</h3>
           <p>
-            <a href="" class="btn btn-primary slider-link">
+            <a href="" class="btn btn-danger slider-link">
               New Account
             </a>
           </p>
@@ -39,7 +39,7 @@
         <div class="carousel-caption d-none d-md-block">
           <h3>Welcome to your Book Sharing Platform</h3>
           <p>
-            <a href="" class="btn btn-primary slider-link">
+            <a href="" class="btn btn-danger slider-link">
               Borrow Now
             </a>
           </p>
@@ -141,8 +141,8 @@
               </div>
           </div>
           <div class="col-md-1">
-               <button type="submit" class="btn btn-success btn-lg" name="">
-                <i class="fa fa-search"></i> Search
+               <button type="submit" class="btn btn-danger btn-lg" name="" style="margin-top:37px !important">
+                <i class="fa fa-search"></i>
                </button>
           </div>
         </div>
@@ -167,7 +167,7 @@
                   <p>
                     <a href="" class=""><i class="fa fa-upload"></i> Polash Rana</a>
                   </p>
-                  <a href="{{ route('books.show') }}" class="btn btn-outline-primary"><i class="fa fa-eye"></i> View</a>
+                  <a href="{{ route('books.show') }}" class="btn btn-outline-danger" ><i class="fa fa-eye"></i> View</a>
                   <a href="" class="btn btn-outline-danger"><i class="fa fa-heart"></i> Wishlist</a>
                   
                 </div>
