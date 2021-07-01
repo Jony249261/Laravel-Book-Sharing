@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Category;
+
 
 class CategoriesController extends Controller
 {
@@ -14,7 +16,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        $parent_categories = Category::where('parent_id', null)->get();
+        return view('backend.pages.categories.index', compact('categories','parent_categories'));
     }
 
     /**
@@ -35,7 +39,24 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:50',
+            'description' => 'nullable',
+        ]);
+
+        $categories = new Category();
+        $categories->name = $request->name;
+        if(empty($request->slug)){
+            $categories->slug = str_slug($request->name);
+        }else{
+            $categories->slug = $request->slug;
+        }
+        $categories->parent_id = $request->parent_id;
+        $categories->description = $request->description;
+        $categories->save();
+
+        session()->flash('success', 'Categories has been created !!');
+        return back();
     }
 
     /**
@@ -55,10 +76,7 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+  
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +87,26 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:50',
+            'slug' => 'nullable',
+            'description' => 'nullable',
+        ]);
+
+        $categories = Category::find($id);
+        $categories->name = $request->name;
+        $categories->parent_id = $request->parent_id;
+        // $categories->link = str_slug($request->name);
+        if(empty($request->slug)){
+            $categories->slug = str_slug($request->name);
+        }else{
+            $categories->slug = $request->slug;
+        }
+        $categories->description = $request->description;
+        $categories->save();
+
+        session()->flash('success', 'Categories has been updated !!');
+        return back();
     }
 
     /**
@@ -80,6 +117,18 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+         // Delete all child categories
+        $child_categories = Category::where('parent_id', $id)->get();
+        foreach ($child_categories as $child) {
+            $child->delete();
+        }
+
+        $category = Category::find($id);
+        $category->delete();
+
+        session()->flash('success', 'Category has been deleted !!');
+        return back();
     }
 }
+
+

@@ -40,10 +40,15 @@
                         
                         <a class="collapse-item" href="{{route('admin.authors.index')}}">Authors</a>
                         <a class="collapse-item" href="{{route('admin.publishers.index')}}">Publishers</a>
+                        <a class="collapse-item" href="{{route('admin.categories.index')}}">Category</a>
+                        <a class="collapse-item" href="{{route('admin.books.index')}}">Books</a>
                         
                         
                     </div>
                 </div>
+                
+
+                
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->

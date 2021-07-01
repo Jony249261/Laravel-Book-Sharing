@@ -41,4 +41,29 @@ Route::group(['prefix' => 'authors'], function(){
 		Route::get('/delete/{id}', 'Backend\PublishersController@destroy')->name('admin.publishers.delete');
 	});
 
+
+    Route::group(['prefix' => 'books'], function(){
+		Route::get('/', 'Backend\BooksController@index')->name('admin.books.index');
+		Route::get('/unapproved', 'Backend\BooksController@unapproved')->name('admin.books.unapproved');
+		Route::get('/approved', 'Backend\BooksController@approved')->name('admin.books.approved');
+		Route::get('/create', 'Backend\BooksController@create')->name('admin.books.create');
+		Route::get('/edit/{id}', 'Backend\BooksController@edit')->name('admin.books.edit');
+		
+		Route::post('/store', 'Backend\BooksController@store')->name('admin.books.store');
+		Route::post('/update/{id}', 'Backend\BooksController@update')->name('admin.books.update');
+		Route::post('/delete/{id}', 'Backend\BooksController@destroy')->name('admin.books.delete');
+		Route::post('/approve/{id}', 'Backend\BooksController@approve')->name('admin.books.approve');
+		Route::post('/unapprove/{id}', 'Backend\BooksController@unapprove')->name('admin.books.unapprove');
+	});
+
+
+    Route::group(['prefix' => 'categories'], function(){
+		Route::get('/', 'Backend\CategoriesController@index')->name('admin.categories.index');
+		Route::post('/store', 'Backend\CategoriesController@store')->name('admin.categories.store');
+		Route::get('/{id}', 'Backend\CategoriesController@show')->name('admin.categories.show');
+		Route::post('/update/{id}', 'Backend\CategoriesController@update')->name('admin.categories.update');
+		Route::get('/delete/{id}', 'Backend\CategoriesController@destroy')->name('admin.categories.delete');
+	});
+
+
 });
