@@ -13,7 +13,10 @@ use App\BookAuthor;
 
 class BooksController extends Controller
 {
-    
+    function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -68,7 +71,7 @@ class BooksController extends Controller
             'publisher_id' => 'required',
             'slug' => 'nullable|unique:books',
             'description' => 'nullable',
-            'image' => 'required|image|max:2048',
+            'image' => 'required',
             'quantity' => 'required|numeric|min:1'
         ],
         [
@@ -164,7 +167,7 @@ class BooksController extends Controller
             'publisher_id' => 'required',
             'slug' => 'nullable|unique:books,slug,'.$book->id,
             'description' => 'nullable',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable',
             'quantity' => 'required|numeric|min:1'
         ],
         [

@@ -1,14 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-use Illuminate\Support\Facades\Session;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Category;
 
+use App\Category;
 
 class CategoriesController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +25,7 @@ class CategoriesController extends Controller
     {
         $categories = Category::all();
         $parent_categories = Category::where('parent_id', null)->get();
-        return view('backend.pages.categories.index', compact('categories','parent_categories'));
+        return view('backend.pages.categories.index', compact('categories', 'parent_categories'));
     }
 
     /**
@@ -41,21 +48,23 @@ class CategoriesController extends Controller
     {
         $request->validate([
             'name' => 'required|max:50',
+            'slug' => 'nullable|unique:categories',
             'description' => 'nullable',
         ]);
 
-        $categories = new Category();
-        $categories->name = $request->name;
-        if(empty($request->slug)){
-            $categories->slug = str_slug($request->name);
+        $category = new Category();
+        $category->name = $request->name;
+        if (empty($request->slug)) {
+            $category->slug = str_slug($request->name);
         }else{
-            $categories->slug = $request->slug;
+            $category->slug = $request->slug;
         }
-        $categories->parent_id = $request->parent_id;
-        $categories->description = $request->description;
-        $categories->save();
+        
+        $category->parent_id = $request->parent_id;
+        $category->description = $request->description;
+        $category->save();
 
-        session()->flash('success', 'Categories has been created !!');
+        session()->flash('success', 'Category has been created !!');
         return back();
     }
 
@@ -76,7 +85,10 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-  
+    public function edit($id)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
@@ -87,25 +99,27 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+       $category = Category::find($id);
+
+       $request->validate([
             'name' => 'required|max:50',
-            'slug' => 'nullable',
+            'slug' => 'nullable|unique:categories,slug,'.$category->id,
             'description' => 'nullable',
         ]);
 
-        $categories = Category::find($id);
-        $categories->name = $request->name;
-        $categories->parent_id = $request->parent_id;
-        // $categories->link = str_slug($request->name);
-        if(empty($request->slug)){
-            $categories->slug = str_slug($request->name);
+        
+        $category->name = $request->name;
+        if (empty($request->slug)) {
+            $category->slug = str_slug($request->name);
         }else{
-            $categories->slug = $request->slug;
+            $category->slug = $request->slug;
         }
-        $categories->description = $request->description;
-        $categories->save();
+        
+        $category->parent_id = $request->parent_id;
+        $category->description = $request->description;
+        $category->save();
 
-        session()->flash('success', 'Categories has been updated !!');
+        session()->flash('success', 'Category has been updated !!');
         return back();
     }
 
@@ -117,7 +131,7 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-         // Delete all child categories
+        // Delete all child categories
         $child_categories = Category::where('parent_id', $id)->get();
         foreach ($child_categories as $child) {
             $child->delete();
@@ -130,5 +144,3 @@ class CategoriesController extends Controller
         return back();
     }
 }
-
-

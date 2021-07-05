@@ -1,11 +1,12 @@
 @extends('backend.layouts.app')
 
-@section('content')
+@section('admin-content')
 <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Edit Book - {{ $book->title }}</h1>
     </div>
     
+    @include('backend.layouts.partials.messages')
     
     <div class="row">
       <div class="col-md-12">
@@ -34,7 +35,6 @@
                     @endforeach
                   </select>
                 </div> 
-                
 
                 <div class="col-md-6">
                   <label for="isbn">Book ISBN</label>
@@ -45,13 +45,13 @@
                 <div class="col-md-6">
                   <label for="">Book Author</label>
                   <br>
-                   <select name="author_id[]" id="author_id" class="form-control select2" multiple>
+                   <select name="author_ids[]" id="author_id" class="form-control select2" multiple>
                     <option value="">Select a author</option>
                     @foreach ($authors as $author)
                       <option value="{{ $author->id }}" {{ App\Book::isAuthorSelected($book->id, $author->id) ? 'selected' : '' }}>{{ $author->name }}</option>
                     @endforeach
                   </select>
-                </div>
+                </div> 
 
                 
                 <div class="col-md-6">

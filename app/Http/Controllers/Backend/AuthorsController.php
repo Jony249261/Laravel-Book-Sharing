@@ -1,12 +1,20 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-use Illuminate\Support\Facades\Session;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 use App\Author;
+
 class AuthorsController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -68,7 +76,10 @@ class AuthorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-  
+    public function edit($id)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
@@ -109,5 +120,3 @@ class AuthorsController extends Controller
         return back();
     }
 }
-
-

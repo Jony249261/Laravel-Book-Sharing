@@ -1,12 +1,14 @@
 @extends('backend.layouts.app')
 
-@section('content')
+@section('admin-content')
 <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Manage Authors</h1>
 
       <a href="#addModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"><i class="fas fa-plus-circle fa-sm text-white-50" ></i> Add Author</a>
     </div>
+    
+    @include('backend.layouts.partials.messages')
 
     <!-- Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -28,18 +30,11 @@
                   <label for="">Author Name</label>
                   <br>
                   <input type="text" class="form-control" name="name" placeholder="Author Name">
-                  @error('name')
-                            <span class="text-danger">{{$message}}</span>
-                  @enderror
                 </div>
                 <div class="col-12">
                   <label for="">Author Details</label>
                   <br>
-                  
                   <textarea name="description" id="description" cols="30" rows="5" class="form-control" placeholder="Author Description"></textarea>
-                  @error('description')
-                            <span class="text-danger">{{$message}}</span>
-                  @enderror
                 </div>
               </div>
 
@@ -70,7 +65,6 @@
                     <th>Sl</th>
                     <th>Name</th>
                     <th>Link</th>
-                    <th>Description</th>
                     <th>Manage</th>
                   </tr>
                 </thead>
@@ -80,15 +74,10 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $author->name }}</td>
                     <td>{{ $author->link }}</td>
-                    @if($author->description  == NULL)
-                    <td></td>
-                    @else
-                    <td>{{ $author->description }}</td>
-                    @endif
                     <td>
                       <a href="#editModal{{ $author->id }}" class="btn btn-success" data-toggle="modal"><i class="fa fa-edit"></i> Edit</a>
 
-                      <a href=" {{ route('admin.authors.delete', $author->id) }}" class="btn btn-danger" id="delete"><i class="fa fa-trash"></i> Delete</a>
+                      <a href="#deleteModal{{ $author->id }}" class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash"></i> Delete</a>
                     </td>
                   </tr>
 
@@ -114,7 +103,6 @@
                                 <input type="text" class="form-control" name="name" placeholder="Author Name" value="{{ $author->name }}">
                               </div>
                               <div class="col-12">
-                              <br>
                                 <label for="">Author Details</label>
                                 <br>
                                 <textarea name="description" id="description" cols="30" rows="5" class="form-control" placeholder="Author Description">{!! $author->description !!}</textarea>
@@ -135,7 +123,6 @@
 
 
                   <!-- Delete Modal -->
-                  <!--
                   <div class="modal fade" id="deleteModal{{ $author->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                       <div class="modal-content">
@@ -164,7 +151,7 @@
                         
                       </div>
                     </div>
-                  </div> -->
+                  </div>
                   <!-- Delete Modal -->
                   @endforeach
 

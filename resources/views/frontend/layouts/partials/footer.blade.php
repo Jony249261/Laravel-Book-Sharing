@@ -8,11 +8,11 @@
         <img src="{{ asset('images/logo.jpg') }}" class="logo-image">
         <p>
           <address>
-            Farmgate, Dhaka-1200
+            Mirpur 12, Dhaka-1200
             <br>
             Dhaka
           </address>
-          <a href="mailto:support@booksharing.com">support@booksharing.com</a>
+          <a href="mailto:support@booksharing.com">jony.just.cse@gmail.com</a>
         </p>
       </div>
 
@@ -51,7 +51,7 @@
     </div>
 
     <p class="text-center">
-      &copy; 2019 all rights reserved <a href="http://jony.microwebit.com/">Jony Islam</a>
+      &copy; 2019 all rights reserved
     </p>
   </div>
 </div>

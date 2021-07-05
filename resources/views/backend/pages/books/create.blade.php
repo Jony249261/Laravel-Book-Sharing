@@ -1,10 +1,12 @@
 @extends('backend.layouts.app')
 
-@section('content')
+@section('admin-content')
 <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Create New Book</h1>
     </div>
+    
+    @include('backend.layouts.partials.messages')
     
     <div class="row">
       <div class="col-md-12">

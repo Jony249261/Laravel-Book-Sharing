@@ -1,14 +1,20 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-use Illuminate\Support\Facades\Session;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Publisher;
 
+use App\Publisher;
 
 class PublishersController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,18 +46,19 @@ class PublishersController extends Controller
     {
         $request->validate([
             'name' => 'required|max:50',
+            'link' => 'nullable|url',
             'description' => 'nullable',
         ]);
 
-        $publishers = new Publisher();
-        $publishers->name = $request->name;
-        $publishers->link = str_slug($request->name);
-        $publishers->outlet = str_slug($request->outlet);
-        $publishers->address = str_slug($request->address);
-        $publishers->description = $request->description;
-        $publishers->save();
+        $publisher = new Publisher();
+        $publisher->name = $request->name;
+        $publisher->link = $request->link;
+        $publisher->address = $request->address;
+        $publisher->outlet = $request->outlet;
+        $publisher->description = $request->description;
+        $publisher->save();
 
-        session()->flash('success', 'Publishers has been created !!');
+        session()->flash('success', 'Publisher has been created !!');
         return back();
     }
 
@@ -72,7 +79,10 @@ class PublishersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-  
+    public function edit($id)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
@@ -85,16 +95,19 @@ class PublishersController extends Controller
     {
         $request->validate([
             'name' => 'required|max:50',
+            'link' => 'nullable|url',
             'description' => 'nullable',
         ]);
 
-        $publishers = publisher::find($id);
-        $publishers->name = $request->name;
-        // $publishers->link = str_slug($request->name);
-        $publishers->description = $request->description;
-        $publishers->save();
+        $publisher = Publisher::find($id);
+        $publisher->name = $request->name;
+        $publisher->link = $request->link;
+        $publisher->address = $request->address;
+        $publisher->outlet = $request->outlet;
+        $publisher->description = $request->description;
+        $publisher->save();
 
-        session()->flash('success', 'publishers has been updated !!');
+        session()->flash('success', 'Publisher has been updated !!');
         return back();
     }
 
@@ -106,12 +119,10 @@ class PublishersController extends Controller
      */
     public function destroy($id)
     {
-        $publishers = Publisher::find($id);
-        $publishers->delete();
+        $publisher = Publisher::find($id);
+        $publisher->delete();
 
-        session()->flash('success', 'publishers has been deleted !!');
+        session()->flash('success', 'Publisher has been deleted !!');
         return back();
     }
 }
-
-
