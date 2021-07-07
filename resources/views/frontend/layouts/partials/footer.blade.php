@@ -12,7 +12,7 @@
             <br>
             Dhaka
           </address>
-          <a href="mailto:support@booksharing.com">jony.just.cse@gmail.com</a>
+          <a href="mailto:jony.just.cse@gmail.com">jony.just.cse@gmail.com</a>
         </p>
       </div>
 
